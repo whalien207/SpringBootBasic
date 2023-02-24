@@ -22,7 +22,6 @@
 
 	<!--개인 -->
 	<link rel="stylesheet" type="text/css" href="../css/modal.css" />
-	<script src="../js/modal.js"></script>
 	
 	
 <meta charset="UTF-8">
@@ -129,5 +128,61 @@
 	</footer>	
 	
 </body>
+
+<script th:inline="javascript">
+	console.log(JSON.parse('[[${uri}]]'))
+	
+	/*
+	메뉴 선택 유지 - 
+	sub_menu_toggle > a에 sub_menu_select클래스
+	sub_menu -> style = "display:block;"
+	sub_menu > a링크에 on클래스 추가.
+	*/
+	
+	var menu = JSON.parse('[[${uri}]]');
+	
+	//아래와 같이 반복문을 돌리지 않고도 추가가 가능하다.
+	/* $("a[href*=']"+menu+"']").addClass("on"); */
+	
+	$(".sub_menu a").each(function(index, item){
+		
+		//console.log(index, item);
+		//console.log($(item).attr("href"));
+		
+		//href속성에 uri값이 들어있는지 확인 
+		if( $(item).attr("href").includes(menu) ){
+			//a태그에 on클래스추가
+			$(item).addClass("on");
+			$(item).closest(".sub_menu").css("display", "block");
+			$(item).closest(".sub_menu").prev().addClass("sub_menu_select");
+		}
+	})
+	
+</script>
+
 </th:block>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
